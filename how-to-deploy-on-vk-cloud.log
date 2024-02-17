@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2024.2.9)  17 FEB 2024 20:33
+This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2024.2.9)  17 FEB 2024 20:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1234,8 +1234,13 @@ File: img/2024-02-17-20-12-31.png Graphic file (type bmp)
 <img/2024-02-17-20-12-31.png>
 File: img/2024-02-17-20-14-32.png Graphic file (type bmp)
 <img/2024-02-17-20-14-32.png>
- [14] [15] [16]
-(how-to-deploy-on-vk-cloud.aux)
+ [14] [15]
+Overfull \hbox (14.26308pt too wide) in paragraph at lines 307--308
+[][][]\TU/TimesNewRoman(0)/m/n/14.4 https://dev.to/ysmnikhil/how-to-build-with-
+react-or-vue-with-vite-and-docker-1a3l[][] 
+ []
+
+[16] (how-to-deploy-on-vk-cloud.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
