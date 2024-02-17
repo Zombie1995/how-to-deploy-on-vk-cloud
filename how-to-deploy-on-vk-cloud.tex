@@ -1,0 +1,305 @@
+% !TEX program = xelatex
+\documentclass[14pt, a4paper]{extarticle}
+\usepackage[english, russian]{babel}
+\usepackage{amsmath}
+\usepackage{mathastext}
+\usepackage{xcolor}
+\usepackage{accsupp}
+\usepackage{listings}
+\usepackage[unicode, colorlinks=true, linkcolor=blue]{hyperref}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{indentfirst}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{bookmark} 
+\usepackage{fontspec} 
+\usepackage{titlesec}
+\titleformat{\section}{\large\scshape\color{gray}}{\hspace*{-4.5em}\rule[-1.35mm]{4.5em}{1.25em}{\color{white}\hspace{-1cm}\large\scshape\thesection\hspace{5pt}}}{22pt}{}
+% \titleformat{\section}{\large\scshape}{\thesection}{10pt}{}
+\titleformat{\subsection}{\large\scshape\color{gray}}{\hspace*{-4.5em}\rule[-1.35mm]{4.5em}{1.25em}{\color{white}\hspace{-1cm}\large\scshape\thesubsection\hspace{5pt}}}{10pt}{}
+% \titleformat{\subsection}{\large\scshape}{\thesubsection}{10pt}{}
+
+\setmainfont{Times New Roman}
+\linespread{1.5}
+
+\pgfplotsset{compat=1.7}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\newcommand{\noncopynumber}[1]{%
+    \BeginAccSupp{method=escape,ActualText={}}%
+    #1%
+    \EndAccSupp{}%
+}
+\lstdefinestyle{mycodestyle}{
+    frame=single,
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numbers=left,
+    numberstyle=\color{codegray},
+    breaklines=true,
+    basicstyle=\ttfamily,
+    breakatwhitespace=false,
+    captionpos=b,
+    keepspaces=true,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    columns=fullflexible,
+    numberstyle=\noncopynumber,
+    language=C++,
+    alsolanguage=PHP
+}
+\lstset{style=mycodestyle}
+% \begin{lstlisting}
+%     #include <iostream>
+    
+%     int main() {
+%         std::cout << "Hello, world!" << std::endl;
+%         return 0;
+%     }
+% \end{lstlisting}
+
+\geometry{left=30mm}
+\geometry{right=10mm}
+\geometry{top=20mm}
+\geometry{bottom=20mm}
+
+\graphicspath{{img/}}
+
+\def\[#1\]{\begin{equation}\begin{aligned}#1\end{aligned}\end{equation}}
+
+\begin{document}
+\begin{titlepage}
+    \centering
+    \par
+    {\scshape ITMO University\par}
+    \vspace{80mm}
+    {\Large\bfseries\scshape Как задеплоить сайт vue на vk cloud\par}
+    \vspace{20mm}
+    {\scshape Кербер Егор\par}
+    \vfill
+    {\scshape\today\par}
+\end{titlepage}
+
+\setcounter{page}{2}
+\tableofcontents
+\newpage
+
+\section{Регистрация на vk cloud и добавление правила}
+
+\begin{enumerate}
+    \item Регисрируемся на vk cloud 
+    \item Создаем инстанс 
+    
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-17-41-09.png}
+
+    \item Желательно выбираем Ubuntu
+    
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-17-42-14.png}
+
+    \item Делаем следующие шаги и все, инстанс создан 
+    \item В разделе 'Виртуальные сети'-'Настройки firewall' добавляем новую настройку firewall 
+
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-17-57-58.png}    
+    
+    \item Обзываем web 
+
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-18-05-15.png}
+    \item Делаем настройку 
+    
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-18-06-39.png}
+
+    \item Добавляем 2 новых правила
+    
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-18-08-48.png}
+
+    \includegraphics*[width=0.5\linewidth]{img/2024-02-17-19-18-22.png}
+
+    \includegraphics*[width=0.5\linewidth]{img/2024-02-17-19-18-42.png}
+
+    \item Добавляем правило к сети
+
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-19-20-42.png}
+
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-19-22-20.png}
+
+    Это правило нужно для того, чтобы сайт вскоре был доступен 
+    
+    по http://212.111.84.6:8000/
+\end{enumerate}
+
+\newpage
+\section{Настройка nginx}
+
+\begin{enumerate}
+    \item При помощи данной команды подключаемся по ssh к удаленной виртуальной машине
+    
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-19-39-01.png}
+    
+    По следующему адресу кстати будет доступен сайт
+    
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-19-54-30.png}
+    
+    Там как и в обычной линухе делаем sudo bash, чтобы удобнее было.
+    
+    Потом клонируем репозиторий, запускаем контейнер при помощи docker-compose up -d 
+    
+    (-d чтобы работа терминала не зависала только на этом процессе)
+    
+    далее по необходимости делаем docker exec -it vite\_docker sh
+    
+    чтобы войти в контейнер и выполнить команды npm i и потом npm run dev 
+    
+    Все, сервер поднялся, теперь конфигурируем сам nginx. 
+
+    \item В папке conf.d делаем конфигурацию при помощи команды nano 
+    
+    /etc/nginx/conf.d/resume.conf 
+    
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-20-27-15.png}
+
+    \item Делаем более общую конфигурацию nano /etc/nginx/nginx.conf
+    
+    \begin{lstlisting}
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+    worker_connections 768;
+    # multi_accept on;
+}
+
+http {
+    ##
+    # Basic Settings
+    ##
+
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    ##
+    # SSL Settings
+    ##
+
+    #ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # Dropping SSLv3, ref: POODLE
+    #ssl_prefer_server_ciphers on;
+
+    ##
+    # Logging Settings
+    ##
+
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    ##
+    # Gzip Settings
+    ##
+
+    gzip on;
+
+    ##
+    # Virtual Host Configs
+    ##
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
+}
+    \end{lstlisting}
+
+    \item Выполняем команду systemctl restart nginx чтобы запустить nginx
+\end{enumerate}
+
+\newpage
+\section{Покупка домена}
+
+\begin{enumerate}
+    \item Заходим на рег.ру, регистрируемся и т.п. и покупаем домен 
+    
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-20-04-40.png}
+
+    \item Потом заходим в личный кабинет, хостинги
+    
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-20-06-31.png}
+
+    \item Заходим в нужный хостинг, мотаем вниз, заходим в панель управления
+    
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-20-07-22.png}
+
+    \item Заходим в управление DNS 
+    
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-20-08-22.png}
+
+    \item Управлять DNS записями 
+    
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-20-09-03.png}
+
+    \item Создаем запись
+    
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-20-09-44.png}
+
+    \item Делаем так
+
+    \includegraphics*[width=0.8\linewidth]{img/2024-02-17-20-10-30.png}
+\end{enumerate}
+
+\newpage
+\section{Конфигурация vite и docker-compose}
+
+Для vite важно добавить это поле 
+
+\includegraphics*[width=0.8\linewidth]{img/2024-02-17-20-12-31.png}
+
+В порте указываем внешний порт (watch usePolling добавил на всякий случай, нужен вроде чтобы hot reload работал или что-то такое)
+
+Для docker-а делаем следующее
+
+\includegraphics*[width=0.8\linewidth]{img/2024-02-17-20-14-32.png}
+
+\subsection{Обьяснение конфигурации от ChatGPT}
+
+Этот файл является файлом конфигурации Docker Compose, который используется для определения и настройки многоконтейнерных приложений. Давайте разберем каждую часть этого файла:
+
+version: "3.4": Это указывает на версию формата файла Docker Compose, которую следует использовать при интерпретации этого файла. В данном случае используется версия 3.4.
+
+services:: Этот ключевой раздел определяет список всех сервисов, которые будут запущены при помощи Docker Compose.
+
+vite\_docker:: Это имя сервиса, которое мы определяем. Здесь vite\_docker - это произвольное имя, которое мы дали нашему сервису.
+
+image: node:alpine: Это образ Docker, который будет использоваться для запуска нашего сервиса. Здесь мы используем образ node:alpine, основанный на Alpine Linux, который содержит Node.js.
+
+container\_name: vite\_docker: Это имя контейнера, которое будет присвоено контейнеру, когда он будет запущен.
+
+entrypoint: /bin/sh: Это команда, которая будет выполнена при запуске контейнера. Здесь мы указываем запуск интерактивной оболочки sh в контейнере.
+
+ports:: Этот параметр определяет порты, которые будут проброшены из контейнера на хостовую машину. В данном случае, порт 8000 контейнера будет проброшен на порт 8000 хостовой машины.
+
+working\_dir: /app: Это рабочий каталог внутри контейнера, к которому будет сделано изменение после запуска контейнера.
+
+volumes:: Этот параметр позволяет примонтировать локальные файловые системы или тома внутрь контейнера. Здесь используется тип bind, что означает привязку (mount) каталога или файла с хостовой машины к каталогу в контейнере.
+
+type: bind: Это тип тома, который мы используем для монтирования файловой системы хоста.
+
+source: ./: Это путь к каталогу или файлу на хостовой машине, который будет примонтирован в контейнер.
+
+target: /app: Это место в контейнере, куда будет примонтирован каталог или файл с хостовой машины.
+
+tty: true: Этот параметр устанавливает взаимодействие с терминалом (TTY) внутри контейнера, что обеспечивает возможность использования интерактивной оболочки внутри контейнера.
+
+Этот файл Docker Compose определяет контейнер, который будет запущен с образом Node.js, пробрасывает порт 8000, монтирует текущий рабочий каталог хостовой машины внутрь контейнера и запускает интерактивную оболочку sh внутри контейнера.
+
+\end{document}

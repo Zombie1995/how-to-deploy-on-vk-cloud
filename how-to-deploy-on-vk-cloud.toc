@@ -1,0 +1,6 @@
+\babel@toc {russian}{}\relax 
+\contentsline {section}{\numberline {1}Регистрация на vk cloud и добавление правила}{3}{section.1}%
+\contentsline {section}{\numberline {2}Настройка nginx}{7}{section.2}%
+\contentsline {section}{\numberline {3}Покупка домена}{11}{section.3}%
+\contentsline {section}{\numberline {4}Конфигурация vite и docker-compose}{14}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Обьяснение конфигурации от ChatGPT}{15}{subsection.4.1}%
