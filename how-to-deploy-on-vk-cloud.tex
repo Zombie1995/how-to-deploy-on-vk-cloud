@@ -268,26 +268,81 @@ http {
 
 Для docker-а делаем следующее
 
-\includegraphics*[width=0.8\linewidth]{img/2024-02-17-22-27-54.png}
+\includegraphics*[width=0.8\linewidth]{img/2024-02-18-15-19-07.png}
+% \includegraphics*[width=0.8\linewidth]{img/2024-02-17-22-27-54.png}
+
+(закоментированные настройки - для запуска в режиме разработки)
 
 \begin{lstlisting}
+# version: "3.4"
+# services:
+#  vite_docker:
+#    image: node:alpine
+#    container_name: vite_docker
+#   #  Specify entrypoint to enter container and run commands by yourself later: docker exec -it vite_docker sh ; and then npm i && npm run dev
+#   #  entrypoint: /bin/sh
+#    ports:
+#      - 80:80
+#    working_dir: /app
+#    volumes:
+#      - type: bind
+#        source: ./
+#        target: /app
+#    tty: true
+#    command: /bin/sh -c "npm i && npm run dev"
+
 version: "3.4"
 services:
-    vite_docker:
-    image: node:alpine
-    container_name: vite_docker
-    #  Specify entrypoint to enter container and run commands by yourself later: docker exec -it vite_docker sh ; and then npm i && npm run dev
-    #  entrypoint: /bin/sh
+vite_docker:
+    build:
+    context: .
+    dockerfile: Dockerfile
     ports:
-        - 8000:8000
-    working_dir: /app
-    volumes:
-        - type: bind
-        source: ./
-        target: /app
-    tty: true
-    command: /bin/sh -c "npm i && npm run dev"
+    - "80:80"
 \end{lstlisting}
+
+Чтобы запустить конфигурацию для продакшна нужна команда 
+
+docker-compose up --build -d
+
+Dockerfile:
+
+\includegraphics*[width=0.8\linewidth]{img/2024-02-18-15-22-23.png}
+
+\begin{lstlisting}
+FROM node:alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+CMD ["nginx", "-g", "daemon off;"]
+\end{lstlisting}
+
+Nginx:
+
+\includegraphics*[width=0.8\linewidth]{img/2024-02-18-15-23-28.png}
+
+\begin{lstlisting}
+server {
+    listen 80;
+    server_name localhost;
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+        try_files $uri $uri/ /index.html;
+    }
+}
+\end{lstlisting}
+
+vite\_config:
+
+\includegraphics*[width=0.8\linewidth]{img/2024-02-18-15-24-34.png}
 
 \subsection{Обьяснение конфигурации от ChatGPT}
 
