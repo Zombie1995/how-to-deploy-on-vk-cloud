@@ -5,3 +5,4 @@
 \contentsline {section}{\numberline {4}Конфигурация vite и docker-compose}{14}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Обьяснение конфигурации от ChatGPT}{18}{subsection.4.1}%
 \contentsline {section}{\numberline {5}Как зайти на сайт}{20}{section.5}%
+\contentsline {section}{\numberline {6}Настройка https}{21}{section.6}%

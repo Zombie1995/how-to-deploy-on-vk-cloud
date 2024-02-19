@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2024.2.9)  18 FEB 2024 15:24
+This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2024.2.9)  19 FEB 2024 19:14
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1249,25 +1249,30 @@ File: img/2024-02-17-22-14-45.png Graphic file (type bmp)
 <img/2024-02-17-22-14-45.png>
 File: img/2024-02-17-22-14-58.png Graphic file (type bmp)
 <img/2024-02-17-22-14-58.png>
-
-Overfull \hbox (14.26308pt too wide) in paragraph at lines 388--389
+ [20]
+File: img/2024-02-19-19-11-07.png Graphic file (type bmp)
+<img/2024-02-19-19-11-07.png>
+File: img/2024-02-19-19-11-31.png Graphic file (type bmp)
+<img/2024-02-19-19-11-31.png>
+ [21] [22]
+Overfull \hbox (14.26308pt too wide) in paragraph at lines 457--458
 [][][]\TU/TimesNewRoman(0)/m/n/14.4 https://dev.to/ysmnikhil/how-to-build-with-
 react-or-vue-with-vite-and-docker-1a3l[][] 
  []
 
-[20] (how-to-deploy-on-vk-cloud.aux)
+[23] (how-to-deploy-on-vk-cloud.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 38834 strings out of 410379
- 899144 string characters out of 5788052
- 2057432 words of memory out of 5000000
- 59604 multiletter control sequences out of 15000+600000
+ 38894 strings out of 410379
+ 900279 string characters out of 5788052
+ 2058432 words of memory out of 5000000
+ 59662 multiletter control sequences out of 15000+600000
  562445 words of font info for 79 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  84i,6n,93p,780b,3785s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on how-to-deploy-on-vk-cloud.pdf (20 pages).
+Output written on how-to-deploy-on-vk-cloud.pdf (23 pages).

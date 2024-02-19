@@ -383,6 +383,75 @@ tty: true: Этот параметр устанавливает взаимоде
 
 \includegraphics*[width=0.8\linewidth]{img/2024-02-17-22-14-58.png}
 
+\newpage
+\section{Настройка https}
+
+Чтобы настроить https, заходим в панель хостинга
+
+\includegraphics*[width=0.8\linewidth]{img/2024-02-19-19-11-07.png}
+
+Копируем ssl-сертификат и его ключ
+
+\includegraphics*[width=0.8\linewidth]{img/2024-02-19-19-11-31.png}
+
+На сервер закидываем в папку /certs egorkerber.crt и egorkerber.key, потом добавляем настройки в docker-compose и nginx 
+
+docker-compose.yml 
+
+\begin{lstlisting}
+version: "3.4"
+services:
+  vite_docker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /certs:/certs
+\end{lstlisting}
+
+nginx.conf
+
+\begin{lstlisting}
+server {
+    listen 80;
+    listen [::]:80;
+    server_name egorkerber.ru www.egorkerber.ru;
+    
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+        try_files $uri $uri/ /index.html;
+    }
+    
+    # return 301 https://$server_name$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name egorkerber.ru www.egorkerber.ru;
+
+    http2 on;
+
+    ssl_certificate /certs/egorkerber.crt;
+    ssl_certificate_key /certs/egorkerber.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH";
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_tickets off;
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+        try_files $uri $uri/ /index.html;
+    }
+}
+\end{lstlisting} 
+
 \section*{Ссылки}
 
 \href{https://dev.to/ysmnikhil/how-to-build-with-react-or-vue-with-vite-and-docker-1a3l}{https://dev.to/ysmnikhil/how-to-build-with-react-or-vue-with-vite-and-docker-1a3l}
